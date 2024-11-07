@@ -1,115 +1,192 @@
+import Step4 from "@/components/Step.4";
+import Step1 from "@/components/Step1";
+import Step2 from "@/components/Step2";
+import Step3 from "@/components/Step3";
 import Image from "next/image";
-import localFont from "next/font/local";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import { useState } from "react";
+import PlanModel from "@/models/PlanModel";
+import AddonModel from "@/models/AddonModel";
 
 export default function Home() {
-  return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              pages/index.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [step, setStep] = useState(1);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [plan, setPlan] = useState<PlanModel | null>(null);
+  const [interval, setInterval] = useState("monthly");
+  const [addons, setAddons] = useState<AddonModel[]>([]);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const nextStep = () => {
+    setStep(step + 1);
+  };
+  const prevStep = () => {
+    setStep(step - 1);
+  };
+
+  return (
+    <div className="flex w-full h-screen justify-center items-center bg-magnolia">
+      <div className="flex h-[80%] p-4 rounded-md bg-white">
+        <div className="flex w-[300px] relative">
+          <Image
+            className="absolute w-full h-full rounded-md object-cover"
+            src="/images/bg-sidebar-desktop.svg"
+            alt=""
+            width={500}
+            height={500}
+          ></Image>
+          <div className="absolute flex flex-col w-full p-8 mt-4 gap-y-6">
+            <div className="flex items-center gap-x-4">
+              <div
+                className={`${
+                  step === 1
+                    ? "bg-lightBlue border-lightBlue"
+                    : "border-white text-white"
+                } flex w-10 h-10 font-[700] border items-center justify-center rounded-full`}
+              >
+                1
+              </div>
+              <div className="flex flex-col">
+                <p className="text-[14px] font-[400] text-lightGray">STEP 1</p>
+                <p className="text-[16px] font-[500] text-white tracking-wider">
+                  YOUR INFO
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-x-4">
+              <div
+                className={`${
+                  step === 2
+                    ? "bg-lightBlue border-lightBlue"
+                    : "border-white text-white"
+                } flex w-10 h-10 font-[700] border items-center justify-center rounded-full`}
+              >
+                2
+              </div>
+              <div className="flex flex-col">
+                <p className="text-[14px] font-[400] text-lightGray">STEP 2</p>
+                <p className="text-[16px] font-[500] text-white tracking-wider">
+                  SELECT PLAN
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-x-4">
+              <div
+                className={`${
+                  step === 3
+                    ? "bg-lightBlue border-lightBlue"
+                    : "border-white text-white"
+                } flex w-10 h-10 font-[700] border items-center justify-center rounded-full`}
+              >
+                3
+              </div>
+              <div className="flex flex-col">
+                <p className="text-[14px] font-[400] text-lightGray">STEP 3</p>
+                <p className="text-[16px] font-[500] text-white tracking-wider">
+                  ADD-ONS
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-x-4">
+              <div
+                className={`${
+                  step === 4 || step === 5
+                    ? "bg-lightBlue border-lightBlue"
+                    : "border-white text-white"
+                } flex w-10 h-10 font-[700] border items-center justify-center rounded-full`}
+              >
+                4
+              </div>
+              <div className="flex flex-col">
+                <p className="text-[14px] font-[400] text-lightGray">STEP 4</p>
+                <p className="text-[16px] font-[500] text-white tracking-wider">
+                  SUMMARY
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        {step === 1 || step === 2 || step === 3 || step === 4 ? (
+          <div className="flex flex-col w-[550px] mx-20 mt-16 mb-8">
+            {/* Step1 */}
+            {step === 1 && (
+              <Step1
+                name={name}
+                setName={setName}
+                email={email}
+                setEmail={setEmail}
+                phone={phone}
+                setPhone={setPhone}
+              />
+            )}
+            {/* Step2 */}
+            {step === 2 && (
+              <Step2
+                plan={plan}
+                setPlan={setPlan}
+                interval={interval}
+                setInterval={setInterval}
+              />
+            )}
+            {/* Step3 */}
+            {step === 3 && (
+              <Step3
+                addons={addons}
+                setAddons={setAddons}
+                interval={interval}
+              />
+            )}
+            {/* Step4 */}
+            {step === 4 && (
+              <Step4
+                plan={plan}
+                interval={interval}
+                addons={addons}
+                setStep={setStep}
+              />
+            )}
+
+            <div className="flex w-full h-full items-end justify-between">
+              <button
+                className={`${
+                  step === 1 && "opacity-50 cursor-not-allowed"
+                } px-6 py-3 bg-magnolia border border-marineBlue text-marineBlue font-[700] rounded-md`}
+                onClick={prevStep}
+                disabled={step === 1}
+              >
+                Go Back
+              </button>
+
+              <button
+                className="px-6 py-3 bg-marineBlue hover:bg-[#174a89] text-white font-[700] rounded-md"
+                onClick={nextStep}
+              >
+                {step === 4 ? "Confirm" : "Next"}
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col w-[550px] mx-20 px-12">
+            <div className="flex flex-col w-full h-full items-center justify-center gap-y-8">
+              <Image
+                src="/images/icon-thank-you.svg"
+                alt="Thank you!"
+                width={100}
+                height={100}
+              />
+              <div className="flex flex-col text-center gap-y-3">
+                <h3 className="text-[28px] text-center font-[700]">
+                  Thank you!
+                </h3>
+                <p className="text-coolGray font-[500]">
+                  Thanks for confirming your subscription! We hope you have fun
+                  using our platform. If you ever need support, please feel free
+                  to email us at support@loremgaming.com.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
