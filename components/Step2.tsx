@@ -56,11 +56,11 @@ export default function Step2(props: {
         </p>
       </div>
       <div className="flex flex-col mt-12">
-        <div className="flex justify-between">
+        <div className="flex flex-col lg:flex-row justify-between gap-y-4">
           {plans.map((plan) => (
             <div
               key={plan.id}
-              className={`flex flex-col p-5 w-40 gap-y-16 border-2 rounded-md ${
+              className={`flex lg:flex-col p-5 w-full lg:w-40 gap-x-4 gap-y-16 border-2 rounded-md ${
                 props.plan?.id === plan.id && "border-marineBlue"
               } hover:border-marineBlue cursor-pointer`}
               onClick={() => props.setPlan(plan)}

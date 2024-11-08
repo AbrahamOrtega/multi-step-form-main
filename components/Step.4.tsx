@@ -38,7 +38,7 @@ export default function Step4(props: {
                 })`}
             </p>
             <button
-              className=" underline text-[14px] text-coolGray font-[500] hover:text-pastelBlue"
+              className=" underline text-[14px] text-coolGray font-[500] hover:text-purplishBlue"
               onClick={() => props.setStep(2)}
             >
               Change

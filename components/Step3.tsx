@@ -73,7 +73,7 @@ export default function Step3(props: {
             </div>
             <div className="flex flex-col text-[16px] font-[700] text-marineBlue text-nowrap">
               <p>{addon.title}</p>
-              <p className="text-coolGray">{addon.description}</p>
+              <p className="text-coolGray text-wrap">{addon.description}</p>
             </div>
             <div className="flex flex-grow justify-end text-purplishBlue font-[500]">
               {`+$${
